@@ -1,1 +1,4 @@
+# .gitignore final resolved
 node_modules
+.env
+dist
