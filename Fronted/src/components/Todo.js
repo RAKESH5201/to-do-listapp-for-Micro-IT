@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 // import './App.css';
 import { FaBell } from 'react-icons/fa';
+import {useNavigate} from 'react-router-dom';
 
 const builtInSounds = [
   { name: 'Classic Beep', path: '/sounds/beep.wav' },
@@ -10,6 +11,7 @@ const builtInSounds = [
 ];
 
 const Todo = () => {
+  const navigate = useNavigate();
   const [task, setTask] = useState('');
   const [alarmTime, setAlarmTime] = useState('');
   const [alarmSound, setAlarmSound] = useState(null);
@@ -96,10 +98,25 @@ const Todo = () => {
   const filteredTasks = tasks.filter((t) =>
     t.text.toLowerCase().includes(search.toLowerCase())
   );
+   const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 p-6 flex flex-col items-center font-sans">
-      <h1 className="text-4xl font-extrabold text-white mb-8 drop-shadow-lg">🌟 My Beautiful To-Do List</h1>
+     <div className="flex justify-between items-center w-full max-w-5xl mb-8">
+  <h1 className="text-4xl font-extrabold text-white drop-shadow-lg">
+    🌟 My Beautiful To-Do List
+  </h1>
+  <button
+    onClick={handleLogout}
+    className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded shadow-md"
+  >
+    Logout
+  </button>
+</div>
+
       <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-6 relative items-center">
         <input
           className="border-2 border-white rounded-lg p-3 w-72 focus:outline-none focus:ring-4 focus:ring-yellow-300 shadow-md"
